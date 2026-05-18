@@ -35,25 +35,24 @@ module uart_receiver #(parameter WIDTH = 8)(
 	end
 
 	always @(*) begin
-		case (curr_state)
-			S_IDLE: next_state = rx_sync2 ? S_IDLE : S_START;
-			S_START: begin
-				if (baud_count == 7) 
-					next_state = S_SAMPLE;
-				else
-					next_state = S_IDLE;
-			end
-			S_SAMPLE: begin
-				if (baud_count == 15 && bit_count == (WIDTH - 1))
-					next_state = S_STOP;
-			end
-			S_STOP: begin
-				if(baud_count == 15)
-					next_state = S_IDLE;
-			end
-			default: next_state = S_IDLE;
-		endcase
-	end
+	next_state = curr_state;
+    case (curr_state)
+        S_IDLE:next_state = rx_sync2 ? S_IDLE : S_START;
+        S_START: begin
+        	if (baud_count == 7) 
+                next_state = (rx_sync2 == 0) ? S_SAMPLE : S_IDLE;
+        end
+        S_SAMPLE: begin
+            if (baud_count == 15 && bit_count == (WIDTH - 1))
+                next_state = S_STOP;
+        end
+        S_STOP: begin
+            if(baud_count == 15)
+                next_state = S_IDLE;
+        end
+        default: next_state = S_IDLE;
+    endcase
+end
 
 	always @(posedge baud_clk or posedge sys_rst) begin
 		if (sys_rst) begin
