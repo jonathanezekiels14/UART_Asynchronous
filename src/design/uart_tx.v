@@ -25,7 +25,7 @@ module uart_transmitter #(parameter WIDTH = 8) (
 	assign xmit_active = (curr_state == S_IDLE && xmitH) ? 1'b1 : active_reg;
 	assign xmit_doneH = (curr_state == S_IDLE && xmitH) ? 1'b0 : done_reg;
 	
-	wire tx_en = (count_tx == 4'd14);
+	wire tx_en = (count_tx == 4'd15);
 
 	always @(posedge baud_clk or posedge sys_rst) begin
 		if(sys_rst) begin
