@@ -12,9 +12,9 @@ module uart_receiver #(parameter WIDTH = 8)(
 	reg [1:0] curr_state, next_state;
 
 	reg [3:0] baud_count;
-	reg [2:0] bit_count;
+	reg [3:0] bit_count; 
 	reg [WIDTH-1:0] shift_reg;
-	reg rx_sync1,rx_sync2;
+	reg rx_sync1, rx_sync2;
 
 	always @(posedge baud_clk or posedge sys_rst) begin
 		if(sys_rst) begin
@@ -35,20 +35,19 @@ module uart_receiver #(parameter WIDTH = 8)(
 	end
 
 	always @(*) begin
+		next_state = curr_state; 
 		case (curr_state)
 			S_IDLE: next_state = rx_sync2 ? S_IDLE : S_START;
 			S_START: begin
-				if (baud_count == 7) 
-					next_state = S_SAMPLE;
-				else
-					next_state = S_IDLE;
+				if (baud_count == 4'd7) 
+					next_state = (rx_sync2 == 0) ? S_SAMPLE : S_IDLE; 
 			end
 			S_SAMPLE: begin
-				if (baud_count == 15 && bit_count == (WIDTH - 1))
+				if (baud_count == 4'd15 && bit_count == WIDTH)
 					next_state = S_STOP;
 			end
 			S_STOP: begin
-				if(baud_count == 15)
+				if(baud_count == 4'd15)
 					next_state = S_IDLE;
 			end
 			default: next_state = S_IDLE;
@@ -65,12 +64,12 @@ module uart_receiver #(parameter WIDTH = 8)(
 			rec_readyH <= 0;
 		end
 		else begin
-			rec_readyH <= 0;
+			rec_readyH <= 0; 
 			case(curr_state)
 				S_IDLE: begin
-						baud_count <= 0;
-						bit_count <= 0;
-						rec_busy <= 0;
+					baud_count <= 0;
+					bit_count <= 0;
+					rec_busy <= 0;
 				end
 				S_START:begin
 					baud_count <= baud_count + 1;
@@ -95,4 +94,4 @@ module uart_receiver #(parameter WIDTH = 8)(
 			endcase
 		end
 	end
-endmodule			
+endmodule
