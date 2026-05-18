@@ -1,0 +1,73 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/fetools/work_area/frontend/Batch_11/jonathanezekiels/UART_Asynchronous
+vu_baud
+!s110 1779079572
+!i10b 1
+!s100 BP1T_7olaeK[bmUc2h;o00
+I__;TL[cO_co=gmBjWaDD10
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1778840360
+8uart_baud.v
+Fuart_baud.v
+L0 1
+Z2 OE;L;10.6c;65
+r1
+!s85 0
+31
+!s108 1779079572.000000
+!s107 uart_baud.v|
+!s90 uart_baud.v|
+!i113 0
+Z3 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z4 tCvgOpt 0
+vuart_receiver
+!s110 1779079314
+!i10b 1
+!s100 GLW?X5BTL4[;oj1Gn>oAm2
+I8SZ[2iUC?Jl;8XIn]e:5T1
+R1
+R0
+w1779079313
+8uart_rx.v
+Fuart_rx.v
+L0 1
+R2
+r1
+!s85 0
+31
+!s108 1779079314.000000
+!s107 uart_rx.v|
+!s90 uart_rx.v|
+!i113 0
+R3
+R4
+vuart_transmitter
+!s110 1779079565
+!i10b 1
+!s100 DLUDoDjG8cG6QJXYY@8Fa0
+ITj`N1E]kCCRcFz3FUlSji3
+R1
+R0
+w1779079564
+8uart_tx.v
+Fuart_tx.v
+L0 1
+R2
+r1
+!s85 0
+31
+!s108 1779079565.000000
+!s107 uart_tx.v|
+!s90 uart_tx.v|
+!i113 0
+R3
+R4

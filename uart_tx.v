@@ -10,7 +10,7 @@ module uart_transmitter #(parameter WIDTH = 8) (
 	parameter S_SAMPLE = 2'd2;
 	parameter S_STOP = 2'd3;
 	
-	reg tx_flag;
+	reg tx_en;
 	reg [1:0] curr_state,next_state;
 	reg [3:0] count_tx;
 	reg [2:0] count_word;
@@ -18,7 +18,7 @@ module uart_transmitter #(parameter WIDTH = 8) (
 	always @(posedge baud_clk or posedge sys_rst) begin
 		if(sys_rst) begin
 			count_tx <= 0;
-			tx_flag <= 0;
+			tx_en <= 0;
 		end
 
 		else if (curr_state == S_IDLE) begin
@@ -78,7 +78,7 @@ module uart_transmitter #(parameter WIDTH = 8) (
 					xmit_active <= 1;
 					if(tx_en) begin
 						uart_XMIT_dataH <= tx_data [0];
-						tx_data >> 1;
+						tx_data <= tx_data >> 1;
 						count_word <= count_word + 1;
 					end
 				end
