@@ -39,7 +39,7 @@ module uart_receiver #(parameter WIDTH = 8)(
 		case (curr_state)
 			S_IDLE: next_state = rx_sync2 ? S_IDLE : S_START;
 			S_START: begin
-				if (baud_count == 4'd7) 
+				if (baud_count == 4'd5) 
 					next_state = (rx_sync2 == 0) ? S_SAMPLE : S_IDLE; 
 			end
 			S_SAMPLE: begin
@@ -78,7 +78,7 @@ module uart_receiver #(parameter WIDTH = 8)(
 				S_SAMPLE: begin
 					baud_count <= baud_count + 1;
 					rec_busy <= 1;
-					if(baud_count == 7) begin
+					if(baud_count == 5) begin
 						shift_reg <= {rx_sync2, shift_reg[WIDTH-1:1]};
 						bit_count <= bit_count + 1;
 					end
